@@ -75,7 +75,7 @@ class MyHomePage extends StatelessWidget {
           ),
           SizedBox(height: 5),
           Row(children: [
-            Text('Hobby: Sleep',style: TextStyle(
+            Text('Hobby: Sleep and play game',style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 0, 0, 0))
