@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
               child: Text(
                 "Text",
                 style: TextStyle(
-                  color: Colors.deepPurple,
+                  color: const Color.fromARGB(255, 98, 58, 183),
                   fontSize: 20,
                 ),
               ),
