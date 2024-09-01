@@ -1,28 +1,39 @@
 import 'package:flutter/material.dart';
 
-class menu extends StatefulWidget {
-  const menu({super.key});
+class Menus extends StatefulWidget {
+  const Menus({super.key});
 
   @override
-  State<menu> createState() => menuState();
-  
+  State<Menus> createState() => _MenusState();
 }
-class menuState extends State<menu> {
-  List<String> items = <String>['item1','item2','item3','item4','item5','item6','item7','item8','item9','item10','item11'];
+
+class _MenusState extends State<Menus> {
+  List<String> items = <String>[
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+    'Item 6',
+    'Item 7',
+    'Item 8',
+    'Item 9',
+    'Item 10'
+  ];
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: items.length,
-      itemBuilder: (BuildContext context,int index){
+      itemBuilder: (BuildContext context, int index) {
         return ListTile(
-            title: Text('${items[index]}'),
-            onLongPress: (){
-              setState(() {
-                items.removeAt(index);
-              });
-            },
+          title: Text('${items[index]}'),
+          onLongPress: () {
+            setState(() {
+              items.removeAt(index);
+            });
+          },
         );
-      }
-      );
+      },
+    );
   }
 }
