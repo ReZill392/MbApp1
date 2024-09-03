@@ -10,13 +10,14 @@ class LatestRate extends StatefulWidget {
 }
 
 class _LatestRateState extends State<LatestRate> {
+  late Future<Rate> futureRate;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
-    print("Init State");
-    getRate();
+    futureRate = getRate();
   }
+
   Future<Rate> getRate() async {
     var params = {
       "base": "THB"
@@ -29,28 +30,41 @@ class _LatestRateState extends State<LatestRate> {
     });
 
     Rate rate = rateFromJson(result.body);
-    print(rate.toString());
     return rate;
   }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getRate(), 
-      builder: (BuildContext context, AsyncSnapshot<Rate> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text("Error: ${snapshot.error}"),
+    return Scaffold(
+      body: FutureBuilder<Rate>(
+        future: futureRate,
+        builder: (BuildContext context, AsyncSnapshot<Rate> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text("Error: ${snapshot.error}"),
+              );
+            }
+
+            return ListView.builder(
+              itemCount: snapshot.data?.result?.length ?? 0,
+              itemBuilder: (BuildContext context, int index) {
+                String currencyCode = snapshot.data!.result!.keys.elementAt(index);
+                double exchangeRate = snapshot.data!.result![currencyCode]!;
+
+                return ListTile(
+                  title: Text(currencyCode, style: TextStyle(fontWeight: FontWeight.bold)),
+                  subtitle: Text('${exchangeRate.toString()}'),
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
-          return Center(
-            child: Text("Rate: ${snapshot.data!.toString()}"),
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      });
+        },
+      ),
+    );
   }
 }
