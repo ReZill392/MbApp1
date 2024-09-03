@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/convert.dart';
-import 'package:flutter_application_1/screen/latestRate.dart';
+import 'package:flutter_application_1/screen/MyApp.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -9,7 +8,7 @@ void main() {
       appBar: AppBar(
         title: const Text("Exchange Currency"),
       ),
-      body: const LatestRate(),
+      body: const MyApp(),
     ),
   ));
 }
